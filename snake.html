@@ -34,9 +34,8 @@
             </div>
         </div>
         <div class="col-6">
-            <div class="user"><h1>Snake-Game</h1></div>
-            <div class="button"><button onclick="myFunction()">Hello</button></div>
-            <div class="form"><form action="action_page.php">
+            <div class="user"><h1>Snake-Game</h1></div>            
+            <div class="form1"><form action="action_page.php">
                             
                     <div class="container">
                       <label for="uname"><b>Username</b></label>
@@ -87,9 +86,39 @@
 
         </div>
 
-       
+    <!--Button to open the login-form-->
+    <button onclick="document.getElementById('id01').style.display='block'">Sign-up-Form</button>
+    <!--The HTML for the Form-->
+    <div id="id01" class="form2">
+        <!--eventuell noch adden was passiert wenn man raus will?-->
+        <span onclick="document.getElementById('id01').style.display='none'" 
+        class="close" title="Fucks Form">&times;</span>
+    <!--Content of Form-->
+    <form class="form-content" action="/action_page.php">
+    <div class="img-container"><img src="provider_female.jpg" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="container">
+        <label for="uname"><b>Username</b></label>
+        <input type="text" placeholder="Username" name="uname" requiered>
+
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Password" name="psw" required>
+
+        <button type="submit">Sign me up!</button>
+        <label>
+            <input type="checkbox" checked="checked" name="remember">Remember me
+        </label>
+    </div>
+    <div class="container" style="background-color:antiquewhite">
+        <button type="button" onclick="document.getElementById('id01').style.display='none'"
+        class="cancelbtn">Cancel</button>
+        </div>
+</form>
+</div>
        
        
     </div>
+    
 </body>
 </html>
