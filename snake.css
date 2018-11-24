@@ -1,5 +1,28 @@
 .snake-container{
+    margin-top: 250px;
     border: 1px solid green;
     margin: 0 auto;
     padding: 50px;
+    background-color: green;
+}
+body{   
+    color:white; 
+    background-color: lightblue;
+}
+.user{
+    height: 60px;
+    text-align: center;
+    
+   }
+
+.form-group{
+    margin-top: 50px;
+}
+.Highscore{
+    margin-top: 50px;
+}
+#background {
+    background-image: url(snake-pic.jpg);
+    background-position: left top;
+    background-repeat: no-repeat;
 }
