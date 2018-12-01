@@ -3,6 +3,8 @@ import mongoose from 'mongoose';
 
 
 const { Schema } = mongoose;
+
+// is id out added?
 const userSchema = new Schema({
   username: {
     type: String,
@@ -11,10 +13,6 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: [true, 'User must have Passwort'],
-  },
-  highscore: {
-    type: Number,
-    default: 0
   },
 });
 export default mongoose.model('User', userSchema);
