@@ -3,6 +3,8 @@ const app = express();
 import mongoose from 'mongoose';
 const db = mongoose.connect('mongodb://localhost:27017/somedumm');
 import User from './user.model.js';
+import Highscores from './highscore.model.js';
+
 const bodyParser = require('body-parser');
 
 // access post data like
@@ -14,7 +16,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(express.static('static'));
 
   app.post("/user/create", (req, res) => {
-
 
     let username = req.body.username;
     let password = req.body.password;
@@ -50,6 +51,43 @@ app.use(bodyParser.urlencoded({ extended: true }));
     User.find({}, (err, user) => {
         res.json(user)
     }) 
+  });
+
+  app.route('/highscore/best').get((req, res) => {
+    /*
+    Highscores.findOne({ username: req.params['name']}, (err, user) => {
+      res.json(user)
+    })
+    */
+  
+    var fakeHighscores = { 
+      key1 : { "name": "Franz", "Score": "1234"},
+      key2 : { "name": "Hans", "Score": "1233"},
+      key3 : { "name": "Stefan", "Score": "1232"},
+      key4 : { "name": "Nuss", "Score": "1231"},
+      key5 : { "name": "Werner", "Score": "1230"},
+    };
+    res.json(fakeHighscores);
+    
+    //res.send("test");
+  });
+
+  app.route('/highscore/user/:name').get((req, res) => {
+  
+    /*
+    var test = req.params['name'];
+    res.send(test);
+    */
+    
+    var fakeHighscores = { 
+      key1 : "999",
+      key2 : "998",
+      key3 : "997",
+      key4 : "996",
+      key5 : "995",
+    };
+    res.json(fakeHighscores);
+    
   });
 
   app.route('/user/deleteAll').get((req, res) => {

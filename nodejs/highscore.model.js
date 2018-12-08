@@ -6,24 +6,13 @@ const { Schema } = mongoose;
 
 // is id out added?
 const highscoreSchema = new Schema({
-  username: {
-    type: String,
-    required: [true, 'User must have Name'],
+  user: {
+    type: mongoose.Schema.ObjectId, ref: 'User',
+    required: [true, 'Highscore must have User'],
+    unique: true,
   },
-  highscore1: {
-    type: String,
-  },
-  highscore2: {
-    type: String,
-  },
-  highscore3: {
-    type: String,
-  },
-  highscore4: {
-    type: String,
-  },
-  highscore5: {
-    type: String,
-  },
+  highscores: [{
+    highscore: Number,
+  }],
 });
-export default mongoose.model('User', userSchema);
+export default mongoose.model('Highscores', highscoreSchema);
