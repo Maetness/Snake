@@ -60,13 +60,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
     })
     */
   
-    var fakeHighscores = { 
-      key1 : { "name": "Franz", "Score": "1234"},
-      key2 : { "name": "Hans", "Score": "1233"},
-      key3 : { "name": "Stefan", "Score": "1232"},
-      key4 : { "name": "Nuss", "Score": "1231"},
-      key5 : { "name": "Werner", "Score": "1230"},
-    };
+    var fakeHighscores = [
+      { "name": "Franz", "score": "1234"},
+      { "name": "Hans", "score": "1233"},
+      { "name": "Stefan", "score": "1232"},
+      { "name": "Nuss", "score": "1231"},
+      { "name": "Werner", "score": "1230"},
+    ];
     res.json(fakeHighscores);
     
     //res.send("test");
@@ -79,13 +79,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
     res.send(test);
     */
     
-    var fakeHighscores = { 
-      key1 : "999",
-      key2 : "998",
-      key3 : "997",
-      key4 : "996",
-      key5 : "995",
-    };
+    var fakeHighscores = [ 
+      "999",
+      "998",
+      "997",
+      "996",
+      "995",
+    ];
     res.json(fakeHighscores);
     
   });

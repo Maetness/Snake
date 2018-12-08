@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "fh project",
   "main": "server.js",
+  "module": "main.js",
   "scripts": {
     "test": "nuss",
     "start": "node server.js"
