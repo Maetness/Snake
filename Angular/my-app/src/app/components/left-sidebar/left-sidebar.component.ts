@@ -15,10 +15,8 @@ public scores: any;
   ngOnInit() {
     this.dbservice.getOverallHighscores().subscribe(data =>{
       this.scores = data;
-      console.log("data2", data);
-      for(let element in data){
-        console.log("elements:", data[element]);
-      }
+      console.log("data2", data); 
+      
     })
   }
 
