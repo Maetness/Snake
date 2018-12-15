@@ -53,23 +53,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
     }) 
   });
 
-  app.route('/highscore/best').get((req, res) => {
-    /*
-    Highscores.findOne({ username: req.params['name']}, (err, user) => {
-      res.json(user)
-    })
-    */
-  
-    var fakeHighscores = [
-      { "name": "Franz", "score": "1234"},
-      { "name": "Hans", "score": "1233"},
-      { "name": "Stefan", "score": "1232"},
-      { "name": "Nuss", "score": "1231"},
-      { "name": "Werner", "score": "1230"},
-    ];
-    res.json(fakeHighscores);
-    
-    //res.send("test");
+  app.route('/highscore/all').get((req, res) => {
+    Highscores.find({}, (err, some) => {
+      res.json(some)
+    }) 
   });
 
   app.route('/highscore/user/:name').get((req, res) => {
@@ -90,10 +77,56 @@ app.use(bodyParser.urlencoded({ extended: true }));
     
   });
 
+  app.route('/highscore/set').post((req, res) => {
+
+    const name = req.body.username;
+    const score = req.body.highscore;
+
+    if (name && score) {
+      console.log(Highscores.group({
+        key: { "highscore": 1,},
+        cond: {},
+        reduce: function ( curr, result ) { },
+        initial: {}
+      }));
+    }
+
+    res.send(req.body);
+  });
+
   app.route('/user/deleteAll').get((req, res) => {
     mongoose.connection.db.dropDatabase();
     res.status(200).send("droped");
   });
+
+  app.route("/highscore/all/default").get((req, res) =>{
+    let score = new Highscores({user: "huber", highscore: "111"});
+    score.save();
+    score = new Highscores({user: "huber1", highscore: "2"});
+    score.save();
+    score = new Highscores({user: "huber2", highscore: "3"});
+    score.save();
+    score = new Highscores({user: "huber3", highscore: "4"});
+    score.save();
+    score = new Highscores({user: "huber4", highscore: "5"});
+    score.save();
+    res.status(333).send("yes");
+  });
+
+  app.route("/user/all/default").get((req, res) =>{
+    let user = new User({username: "huber", password: "some"});
+    user.save();
+    user = new User({username: "huber1", password: "some"});
+    user.save();
+    user = new User({username: "huber2", password: "some"});
+    user.save();
+    user = new User({username: "huber3", password: "some"});
+    user.save();
+    user = new User({username: "huber4", password: "some"});
+    user.save();
+    res.status(333).send("yes");
+  });
+
 
   // port server listens to
 app.listen(8000, () => {

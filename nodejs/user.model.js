@@ -15,13 +15,11 @@ const userSchema = new Schema({
     type: String,
     required: [true, 'User must have Passwort'],
   },
-  /*
   highscores: [{
     highscore: Number,
   }],
-  saves: [{
-    save: String,
+  usersaves: [{
+    usersave: String,
   }],
-  */
 });
 export default mongoose.model('User', userSchema);
