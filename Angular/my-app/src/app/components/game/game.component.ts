@@ -23,23 +23,23 @@ export class GameComponent implements OnInit {
      // this.gamebox.nativeElement.request();
     }
     
-    private canvasWidth: number;
-    private canvasHeigth: number;
-    private blockSize : number;
+    public canvasWidth: number;
+    public  canvasHeigth: number;
+    public blockSize : number;
     
   
-    private ctx;
-    private delay : number;   //1 s
+    public ctx;
+    public delay : number;   //1 s
   
-    private snakee : Snake;
-    private  applee : Apple;
+    public snakee : Snake;
+    public applee : Apple;
       //la largeur d tout mon area
     public widthInBlocks : number;
   
       //la longueur d tout mon area
     public heigthInBlocks : number;
   
-    private score;//pr afficher l score
+    public score;//pr afficher l score
   
   
     constructor() { 
@@ -50,7 +50,8 @@ export class GameComponent implements OnInit {
       this.widthInBlocks = this.canvasWidth / this.blockSize;
       //la longueur d tout mon area
       this.heigthInBlocks = this.canvasHeigth / this.blockSize;
-      
+      this.snakee = new Snake([[4, 2], [3, 2], [2, 2], [1, 3]], "right");
+      this.applee = new Apple([2, 2]);//un bloc d pomme 
     }
   
     ngOnInit() {
@@ -60,19 +61,17 @@ export class GameComponent implements OnInit {
           canvas.style.border = "30px solid gray";
           canvas.style.margin = "50px auto";
           canvas.style.display = "block";
-          canvas.style.backgroundColor = "#ddd";
-          document.body.appendChild(canvas);
-  
+          canvas.style.backgroundColor = "#ddd";  
   
           this.ctx = canvas.getContext('2d');
-          this.snakee = new Snake([[4, 2], [3, 2], [2, 2], [1, 3]], "right");
+          
           this.score = 0;
-          this.applee = new Apple([2, 2]);//un bloc d pomme 
+          
           this.refreshCanvas();
       }
   
       refreshCanvas():void{
-          this.snakee.advance();
+          this.snakee.advance(this.snakee.direction);
   
           //O cas il ya collision
           if (this.snakee.checkCollision(this)) {
@@ -148,8 +147,7 @@ export class GameComponent implements OnInit {
   
   
   
-      @HostListener('document:keyup', ['$event'])
-      onKeydownHandler(e: KeyboardEvent) {
+      public onKeydownHandler(e: KeyboardEvent) {
           var key = e.keyCode;
           //donner l code d la touch appuyee
           var newDirection;
@@ -189,7 +187,7 @@ export class GameComponent implements OnInit {
   
   class Snake{
       body:number[][];
-      direction:String;
+      direction:string;
       ateApple:boolean;
       constructor(body, direction){
           this.body = body;
@@ -207,7 +205,7 @@ export class GameComponent implements OnInit {
           ctx.restore;
       }
       
-      advance():void{
+      public advance(direction:string):void{
           var nextPosi = this.body[0].slice();
               //pr m donner lelement lui mm
   
@@ -238,7 +236,7 @@ export class GameComponent implements OnInit {
   
       }
   
-      setDirection(newDirection:String):void{
+      setDirection(newDirection:string):void{
               var allowedDirections;
               switch (this.direction) {
                   case "left":
