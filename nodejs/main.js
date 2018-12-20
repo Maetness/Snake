@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // usefull for images from server
 //app.use(express.static('static'));
 
-  app.post("/user/create", (req, res) => {
+  app.post("/api/user/create", (req, res) => {
 
     let username = req.body.username;
     let password = req.body.password;
@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
     }
   });
 
-  app.route('/user/byname/:name').get((req, res) => {
+  app.route('/api/user/byname/:name').get((req, res) => {
     // req.params['name']
     // { projection: { _id: 0, name: 1, address: 1 } }
     User.findOne({ username: req.params['name']}, (err, user) => {
@@ -38,7 +38,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
     }) 
   });
 
-  app.route('/user/delete/:name').get((req, res) => {
+  app.route('/api/user/delete/:name').get((req, res) => {
     // req.params['name']
     // { projection: { _id: 0, name: 1, address: 1 } }
     User.findOne({ username: req.params['name']}, (err, user) => {
@@ -47,19 +47,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
   }) 
   });
 
-  app.route('/user/all').get((req, res) => {
+  app.route('/api/user/all').get((req, res) => {
     User.find({}, (err, user) => {
         res.json(user)
     }) 
   });
 
-  app.route('/highscore/all').get((req, res) => {
+  app.route('/api/highscore/all').get((req, res) => {
     Highscores.find({}, (err, some) => {
       res.json(some)
     }) 
   });
 
-  app.route('/highscore/user/:name').get((req, res) => {
+  app.route('/api/highscore/user/:name').get((req, res) => {
   
     /*
     var test = req.params['name'];
@@ -77,29 +77,41 @@ app.use(bodyParser.urlencoded({ extended: true }));
     
   });
 
-  app.route('/highscore/set').post((req, res) => {
+  app.route('/api/highscore/set').post((req, res) => {
 
     const name = req.body.username;
-    const score = req.body.highscore;
+    const score = parseInt(req.body.highscore);
 
     if (name && score) {
-      console.log(Highscores.group({
-        key: { "highscore": 1,},
-        cond: {},
-        reduce: function ( curr, result ) { },
-        initial: {}
-      }));
+
+      Highscores.count().then((mysize) => {     
+        console.log("size", mysize);
+        if (mysize < 5) {
+          new Highscores({user: name, highscore: score}).save();
+        } else {
+          Highscores.find().sort({
+            "highscore": 1
+          }).limit(1).then((data) => {
+            console.log(data[0].highscore);
+            if (data[0].highscore < score) {
+              console.log("tester", data);
+              data.delete();
+              let newScore = new Highscores({user: name, highscore: score}).save();
+            }
+          });
+        }
+      });
     }
 
     res.send(req.body);
   });
 
-  app.route('/user/deleteAll').get((req, res) => {
+  app.route('/api/user/deleteAll').get((req, res) => {
     mongoose.connection.db.dropDatabase();
     res.status(200).send("droped");
   });
 
-  app.route("/highscore/all/default").get((req, res) =>{
+  app.route("/api/highscore/all/default").get((req, res) =>{
     let score = new Highscores({user: "huber", highscore: "111"});
     score.save();
     score = new Highscores({user: "huber1", highscore: "2"});
@@ -113,7 +125,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
     res.status(333).send("yes");
   });
 
-  app.route("/user/all/default").get((req, res) =>{
+  app.route("/api/user/all/default").get((req, res) =>{
     let user = new User({username: "huber", password: "some"});
     user.save();
     user = new User({username: "huber1", password: "some"});
