@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // usefull for images from server
 //app.use(express.static('static'));
 
-  app.post("/api/user/create", (req, res) => {
+  app.route("/api/user/create").post((req, res) => {
 
     let username = req.body.username;
     let password = req.body.password;
