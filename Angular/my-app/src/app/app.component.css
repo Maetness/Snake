@@ -1,0 +1,18 @@
+.row{
+    background-color: white;
+    
+    
+} 
+.col-3{
+    background-color: white; /* rgba(179,61,38,.5) */;
+    /* color: gold; */
+    font-family: "Times New Roman", Times, serif;
+    margin: 10px, 10px, 10px, 10px;
+    
+}
+
+.col-6{
+    background-color: white;/* brown */;
+    color: black;
+    margin: 10px, 10px, 10px, 10px;
+}

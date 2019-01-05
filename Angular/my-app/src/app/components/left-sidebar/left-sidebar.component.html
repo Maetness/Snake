@@ -1,11 +1,10 @@
-<h1 class="Highscore">General Highscore</h1>
-<div>
-  
+<h1 class="Highscore">Ranking</h1>
+<div>  
     <ul>
     <li *ngFor="let test2 of scores">{{test2.name}} {{test2.score}}</li>    
   </ul>
 </div>
-<div>
+<div class="top-user">
     <h1>Top-User</h1>
     <ul>
         <li *ngFor="let test of highscores">{{test}}</li>      

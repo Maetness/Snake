@@ -1,5 +1,5 @@
           
-            <div class="form">
+            <div id="01" class="form">
               <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
                             
                     <div class="container">
@@ -8,7 +8,8 @@
                   
                       <label for="psw"><b>Password</b></label>
                       <input ngModel type="password" placeholder="Enter Password" name="psw" required>                        
-                      <button type="submit">Login</button>
+                      <button (click)="setLogin()" type="submit">Login</button>
+                      <button (click)="setRegister()" type="submit">Register</button>
                       <!-- <label>
                         <input ngModel type="checkbox" checked="checked" name="remember">Remember me
                       </label> -->
@@ -19,4 +20,4 @@
                   </form></div>
                   <app-game></app-game>
                   
-            <div class="snake-container"><span style="color:blue">gamebox</span></div>
+           <!--  <div class="snake-container"><span style="color:blue">gamebox</span></div> -->
