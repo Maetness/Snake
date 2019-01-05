@@ -21,5 +21,11 @@ const userSchema = new Schema({
   usersaves: [{
     usersave: String,
   }],
+  playedgames: {
+    type: Number,
+  },
+  membersinze: {
+    type: String,
+  }
 });
 export default mongoose.model('User', userSchema);
