@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import { DbService } from '../../db.service'
+<<<<<<< HEAD
 
+=======
+/* import { setFlagsFromString } from 'v8';
+ */
+>>>>>>> 3280fd448857b75efa70852b3a1d9c743b81ec96
 @Component({
   selector: 'app-middle-section',
   templateUrl: './middle-section.component.html',
