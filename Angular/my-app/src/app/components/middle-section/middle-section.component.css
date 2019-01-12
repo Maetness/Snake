@@ -1,4 +1,11 @@
 .form{
     border-style: solid;
-    background-color: white;
+    border-radius: 10px;
+    margin: 15px 0px 0px 0px;
+    background-color: lightgrey;
+    /* background-image: url('https://i.pinimg.com/564x/e2/37/54/e23754c5d828fb1b59a9015e4a2cb0d0.jpg'); */
+    background-image: url('https://memegenerator.net/img/instances/65891576/good-morning-sunny-wanna-play-a-game.jpg');
+    background-position: right;
+    background-size: 22%;
+    background-repeat: no-repeat;
 }

@@ -1,13 +1,16 @@
 .Highscore{
     border-style: solid;
-    background-color: white;/* rgba(179,61,38,.5) */
+    border-radius: 10px;
+    background-color: lightgrey;;/* rgba(179,61,38,.5) */
     padding: 5px 100px 5px 5px; /*top right bottom left*/
-    margin: 75px 0px 30px 0px;
+    margin: 75px 0px 30px 10px;
+
 }
 
 .top-user{
     border-style: solid;
-    background-color: white;/* rgba(179,61,38,.5) */
+    border-radius: 10px;
+    background-color: lightgrey;/* rgba(179,61,38,.5) */
     padding: 5px 100px 5px 5px; /*top right bottom left*/
-    margin: 120px 0px 30px 0px;
+    margin: 120px 0px 30px 10px;
 }
