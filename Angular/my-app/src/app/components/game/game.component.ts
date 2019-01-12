@@ -1,8 +1,5 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import {Directive, HostListener} from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import * as screenfull from 'screenfull';
-import {AfterViewInit, ViewChild} from '@angular/core';
-import { typeWithParameters } from '@angular/compiler/src/render3/util';
 
 declare var game:any;
 
@@ -11,26 +8,33 @@ declare var game:any;
  templateUrl: './game.component.html',
  styleUrls: ['./game.component.css']
 })
+
 export class GameComponent implements OnInit {
 
-   @ViewChild('test', {read: ElementRef})
-   gamebox: ElementRef;
-   
-   
+    @ViewChild('gamebox') gamebox: ElementRef;   
+    mygame: any;
+
     public Clickme(){
-     console.log("theone", this.gamebox.nativeElement);
-     if (screenfull.enabled) {
-       screenfull.request(this.gamebox.nativeElement);
-     }
-     new game();
-    // this.gamebox.nativeElement.request();
-   }
-   
+        if (screenfull.enabled) {
+            screenfull.request(this.gamebox.nativeElement);
+        }
+    }
+
    constructor() { }
-   ngOnInit() {}
+   ngOnInit() {
+        console.log("CANVAS", this.gamebox);
+        this.mygame = new Game(this.gamebox);
+   }
 
+   onKeydownHandler(event) {
+       console.log("handler", event);
+        this.mygame.onKeydownHandler(event);
+   }
 
-   /*
+}
+
+class Game {
+   
    public canvasWidth: number;
    public  canvasHeigth: number;
    public blockSize : number;
@@ -48,9 +52,11 @@ export class GameComponent implements OnInit {
    public heigthInBlocks : number;
  
    public score;//pr afficher l score
+
+   public ourCanvas : any;
  
  
-   constructor() { 
+   constructor(gamebox: ElementRef) { 
      this.canvasWidth = 300;
      this.canvasHeigth = 300;
      this.blockSize = 10;
@@ -60,10 +66,12 @@ export class GameComponent implements OnInit {
      this.heigthInBlocks = this.canvasHeigth / this.blockSize;
      this.snakee = new Snake([[4, 2], [3, 2], [2, 2], [1, 3]], "right");
      this.applee = new Apple([2, 2]);
+     this.ourCanvas = gamebox;
+     this.init();
    }
  
-   ngOnInit() {
-       var  canvas = this.gamebox.nativeElement;
+   init() {
+       var  canvas = this.ourCanvas.nativeElement;
          canvas.width = this.canvasWidth;
          canvas.height = this.canvasHeigth;
          canvas.style.border = "30px solid gray";
@@ -79,6 +87,7 @@ export class GameComponent implements OnInit {
      }
  
      refreshCanvas():void{
+         console.log("in refresh");
          this.snakee.advance(this.snakee.direction);
  
          //O cas il ya collision
@@ -97,11 +106,17 @@ export class GameComponent implements OnInit {
                  }
                  while (this.applee.isOnSnake(this.snakee));
              }
+             console.log("before draw");
              this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeigth);
              this.drawScore();
              this.snakee.draw(this.ctx,this);
              this.applee.draw(this.ctx, this.blockSize);//call function
-             setTimeout(this.refreshCanvas, this.delay);
+
+             setTimeout(() => {
+                this.refreshCanvas();
+            }, this.delay);
+
+             console.log("after draw");
  
          }
      }
@@ -156,6 +171,7 @@ export class GameComponent implements OnInit {
  
  
      public onKeydownHandler(e: KeyboardEvent) {
+         console.log("event", e);
          var key = e.keyCode;
          //donner l code d la touch appuyee
          var newDirection;
@@ -199,7 +215,7 @@ export class GameComponent implements OnInit {
          this.ateApple = false;
      }
  
-     draw(ctx,game:GameComponent):void{
+     draw(ctx,game:Game):void{
          ctx.save();
          ctx.fillStyle = "#ff0000";
  
@@ -210,6 +226,7 @@ export class GameComponent implements OnInit {
      }
      
      public advance(direction:string):void{
+         console.log("in advance");
          var nextPosi = this.body[0].slice();
              //pr m donner lelement lui mm
  
@@ -237,6 +254,7 @@ export class GameComponent implements OnInit {
          } else {
              this.ateApple = false;
          }   
+         console.log("after advanced");
  
      }
  
@@ -261,7 +279,7 @@ export class GameComponent implements OnInit {
  
      }
  
-     checkCollision(game:GameComponent):boolean{
+     checkCollision(game:Game):boolean{
              var wallCollision = false;
              var snakeCollision = false;
              var head = this.body[0];//Tete du serpent
@@ -326,7 +344,7 @@ export class GameComponent implements OnInit {
          ctx.restore;
      }
  
-     setNewPosition(game:GameComponent):void{
+     setNewPosition(game:Game):void{
          var newX = Math.round(Math.random() * (game.widthInBlocks - 1));
          var newY = Math.round(Math.random() * (game.heigthInBlocks - 1));
          this.position = [newX, newY];
@@ -343,7 +361,7 @@ export class GameComponent implements OnInit {
              }
              return isOnSnake;
      } 
-     */
+     
  }
    
 
