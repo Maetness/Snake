@@ -8,20 +8,20 @@ import { DbService } from '../../db.service';
 })
 export class RightSidebarComponent implements OnInit {
   
-  public currentuser: string = "test";
-  public user_info: any;
-  public user_highscore: any;
+  public currentuser: string = "tester";
+  public userinfo: any;
+  public userhighscore: any;
 
   constructor(private dbservice : DbService) { }
 
   ngOnInit() {
     this.dbservice.getUserHighscores(this.currentuser).subscribe(data =>{
-      console.log("userinfo", data); 
-      this.user_highscore = data;
+      console.log("userhigh", data); 
+      this.userhighscore = data;
     })
     this.dbservice.getUserInfo(this.currentuser).subscribe(data =>{
-      console.log("userhigh", data); 
-      this.user_info = data;
+      console.log("userinfo", data); 
+      this.userinfo = data;
     })
 
   }

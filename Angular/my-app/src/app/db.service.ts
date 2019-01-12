@@ -47,8 +47,8 @@ export class DbService {
   }
 
   public getUserInfo (username: string){
-    let userinfo = this.http.get("/api/user/info/" + name)
-    console.log("user-info", userinfo);
+    let userinfo = this.http.get("/api/user/info/" + username)
+    console.log("userinfo", userinfo);
     return userinfo;
   }
 
