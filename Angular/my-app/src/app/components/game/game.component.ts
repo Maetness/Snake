@@ -4,6 +4,8 @@ import * as screenfull from 'screenfull';
 import {AfterViewInit, ViewChild} from '@angular/core';
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
 
+declare var game:any;
+
 @Component({
  selector: 'app-game',
  templateUrl: './game.component.html',
@@ -20,9 +22,15 @@ export class GameComponent implements OnInit {
      if (screenfull.enabled) {
        screenfull.request(this.gamebox.nativeElement);
      }
+     new game();
     // this.gamebox.nativeElement.request();
    }
    
+   constructor() { }
+   ngOnInit() {}
+
+
+   /*
    public canvasWidth: number;
    public  canvasHeigth: number;
    public blockSize : number;
@@ -51,7 +59,7 @@ export class GameComponent implements OnInit {
      //la longueur d tout mon area
      this.heigthInBlocks = this.canvasHeigth / this.blockSize;
      this.snakee = new Snake([[4, 2], [3, 2], [2, 2], [1, 3]], "right");
-     this.applee = new Apple([2, 2]);//un bloc d pomme 
+     this.applee = new Apple([2, 2]);
    }
  
    ngOnInit() {
@@ -103,7 +111,7 @@ export class GameComponent implements OnInit {
          this.ctx.font = "bold 70px sans-serif";//ecrir en gras, d taill 200 px, sans-serif:sera tjr la
          this.ctx.fillStyle = "#000"; //couleur grise
  
-         /*pr centrer l score */
+         
          this.ctx.textAlign = "center";
          this.ctx.textBaseline = "middle";
          this.ctx.strokeStyle = "white"; //la bordure en blanc
@@ -180,10 +188,6 @@ export class GameComponent implements OnInit {
  
  };
  
- /*
- var snake:GameComponent  = new GameComponent();
- snake.handleKeyDown
- */
  
  class Snake{
      body:number[][];
@@ -338,7 +342,8 @@ export class GameComponent implements OnInit {
                  }
              }
              return isOnSnake;
-     }
+     } 
+     */
  }
    
 
