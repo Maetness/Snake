@@ -7,17 +7,23 @@ import { DbService } from '../../db.service';
   styleUrls: ['./right-sidebar.component.css']
 })
 export class RightSidebarComponent implements OnInit {
-  public user_info: string[] = ["Player-Name", "Games played:", "Member since:"];
-  public personal_highscore: any;
+  
+  public currentuser: string = "test";
+  public user_info: any;
+  public user_highscore: any;
 
   constructor(private dbservice : DbService) { }
 
   ngOnInit() {
-    this.dbservice.getUserHighscores("sepp").subscribe(data =>{
-      this.personal_highscore = data;
-      console.log("data2", data); 
-      
+    this.dbservice.getUserHighscores(this.currentuser).subscribe(data =>{
+      console.log("userinfo", data); 
+      this.user_highscore = data;
     })
+    this.dbservice.getUserInfo(this.currentuser).subscribe(data =>{
+      console.log("userhigh", data); 
+      this.user_info = data;
+    })
+
   }
 
 }

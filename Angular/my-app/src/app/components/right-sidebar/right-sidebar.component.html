@@ -1,13 +1,15 @@
 <div class="user-info">
   <h1 class="form-group">user info</h1>
   <ul>
-      <li *ngFor="let test of user_info">{{test}}</li>      
+      <li>Name: {{user_info.username}}</li>  
+      <li>Games played: {{user_info.playedgames}}</li>      
+      <li>Member since: {{user_info.membersinze}}</li>          
   </ul>
 </div>
 <div class="user-highscore">
   <h1>User Highscore</h1>
    <ul>
-      <li *ngFor="let test of personal_highscore">{{test}}</li>
+      <li *ngFor="let test of user_highscore">{{test}}</li>
   </ul>
 </div>
 

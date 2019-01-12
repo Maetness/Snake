@@ -1,13 +1,13 @@
 <h1 class="Highscore">Ranking</h1>
 <div>  
     <ul>
-    <li *ngFor="let test2 of scores">{{test2.name}} {{test2.score}}</li>    
+    <li *ngFor="let test2 of scores">{{test2.user}} {{test2.highscore}}</li>    
   </ul>
 </div>
 <div class="top-user">
     <h1>Top-User</h1>
     <ul>
-        <li *ngFor="let test of highscores">{{test}}</li>      
+        <li *ngFor="let test of topuser">{{test.username}} {{test.playedgames}}</li>      
     </ul>
   </div>
   <!--hello-->

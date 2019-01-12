@@ -7,6 +7,15 @@ import Highscores from './highscore.model.js';
 
 const bodyParser = require('body-parser');
 
+// get around cors errors
+const cors = require('cors');
+/*var corsOptions = {
+  origin: 'http://localhost:4200',
+  optionsSuccessStatus: 200 
+}*/
+app.use(cors());
+
+
 // access post data like
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -91,6 +100,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
   // UserInfo
   app.route('/api/user/info/:name').get((req, res) => {
     User.findOne({ username: req.params['name']}, (err, user) => {
+      console.log("info", user);
       res.json(user)
   }) 
   });
@@ -188,15 +198,3 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.listen(8000, () => {
   console.log('Server started!');
 });
-
-
-
-// maybe used later
-/*
-const cors = require('cors')
-var corsOptions = {
-  origin: 'http://example.com',
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204 
-}
-app.use(cors(corsOptions))
-*/
