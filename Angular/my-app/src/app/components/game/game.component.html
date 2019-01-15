@@ -1,4 +1,4 @@
-<canvas #gamebox onkeydown="onKeydownHandler($event)">  
+<canvas #gamebox (keydown)="onKeydownHandler($event)">  
 </canvas>
 <button  (click)="Clickme()">Fullscreen</button>
 

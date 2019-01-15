@@ -15,26 +15,24 @@ export class MiddleSectionComponent implements OnInit {
 
   ngOnInit() {
   }
-public onSubmit(form: NgForm){
-  console.log("form", form.value);
-  console.log("login", this.sendtype);
 
-  if (form.valid) {
-    if (this.sendtype==="login") {
-      this.dbservice.postUserLogin(form.value.uname, form.value.psw).subscribe(data =>{
-        // this. = data;
-         console.log("data6", data); 
-           
-       })
-    } else if(this.sendtype==="register") {
-  
-      this.dbservice.postUserCreation(form.value.uname, form.value.psw).subscribe(data =>{
-        // this. = data;
-         console.log("data5", data); 
-  
-      })}  
+  public onSubmit(form: NgForm){
+    if (form.valid) {
+      if (this.sendtype==="login") {
+        this.dbservice.postUserLogin(form.value.uname, form.value.psw).subscribe(data =>{
+          // this. = data;
+           console.log("data6", data); 
+             
+         })
+      } else if(this.sendtype==="register") {
+    
+        this.dbservice.postUserCreation(form.value.uname, form.value.psw).subscribe(data =>{
+          // this. = data;
+           console.log("data5", data); 
+    
+        })}  
+    }
   }
-}
 
   public setLogin(){
     this.sendtype = "login";
@@ -45,10 +43,5 @@ public onSubmit(form: NgForm){
     this.sendtype = "register";
   }
   
-
-
-
-
-
 }
 

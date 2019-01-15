@@ -39,6 +39,11 @@ export class DbService {
     return test6;
   }
 
+  public postGameOver(username: string, highscore: string) {
+    console.log("postGameOver", username, highscore);
+    return this.http.post("/api/highscore/set", {username: username, highscore: highscore});
+  }
+
   //Top-User get services // ranking
   public getTopUsers (){
     let topusers = this.http.get("/api/user/best")

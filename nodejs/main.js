@@ -100,7 +100,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
   // UserInfo
   app.route('/api/user/info/:name').get((req, res) => {
     User.findOne({ username: req.params['name']}, (err, user) => {
-      console.log("info", user);
       res.json(user)
   }) 
   });
@@ -117,10 +116,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
   });
 
   // Game Over
-  app.route('/api/highscore/set').post((req, res) => {
+  app.route("/api/highscore/set").post((req, res) => {
 
-    const name = req.body.username;
-    const score = parseInt(req.body.highscore);
+    console.log("inn", req.body);
+
+    let name = req.body.username;
+    let score = parseInt(req.body.highscore);
+
+    console.log("some", name, score);
 
     if (name && score) {
 

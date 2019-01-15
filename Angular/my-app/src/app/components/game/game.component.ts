@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import * as screenfull from 'screenfull';
+import { DbService } from '../../db.service'
 
 declare var game:any;
 
@@ -13,6 +14,7 @@ export class GameComponent implements OnInit {
 
     @ViewChild('gamebox') gamebox: ElementRef;   
     mygame: any;
+    public currentuser: string = "tester";
 
     public Clickme(){
         if (screenfull.enabled) {
@@ -20,15 +22,15 @@ export class GameComponent implements OnInit {
         }
     }
 
-   constructor() { }
+   constructor(private dbservice: DbService) { }
    ngOnInit() {
         console.log("CANVAS", this.gamebox);
-        this.mygame = new Game(this.gamebox);
+        this.mygame = new Game(this.gamebox, this.dbservice, this.currentuser);
    }
 
    onKeydownHandler(event) {
        console.log("handler", event);
-        this.mygame.onKeydownHandler(event);
+        //this.mygame.onKeydownHandler(event);
    }
 
 }
@@ -56,11 +58,11 @@ class Game {
    public ourCanvas : any;
  
  
-   constructor(gamebox: ElementRef) { 
+   constructor(gamebox: ElementRef, private dbservice: DbService, private currentuser: string) { 
      this.canvasWidth = 300;
      this.canvasHeigth = 300;
      this.blockSize = 10;
-     this.delay = 100;
+     this.delay = 500;
      this.widthInBlocks = this.canvasWidth / this.blockSize;
      //la longueur d tout mon area
      this.heigthInBlocks = this.canvasHeigth / this.blockSize;
@@ -87,10 +89,10 @@ class Game {
      }
  
      refreshCanvas():void{
-         console.log("in refresh");
          this.snakee.advance(this.snakee.direction);
  
          //O cas il ya collision
+         console.log("before collision", this.snakee.checkCollision(this));
          if (this.snakee.checkCollision(this)) {
              this.gameOver();
          }
@@ -106,7 +108,6 @@ class Game {
                  }
                  while (this.applee.isOnSnake(this.snakee));
              }
-             console.log("before draw");
              this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeigth);
              this.drawScore();
              this.snakee.draw(this.ctx,this);
@@ -114,10 +115,7 @@ class Game {
 
              setTimeout(() => {
                 this.refreshCanvas();
-            }, this.delay);
-
-             console.log("after draw");
- 
+            }, this.delay); 
          }
      }
      gameOver():void{
@@ -143,6 +141,10 @@ class Game {
  
          this.ctx.restore();//a la fin, les restaurer ces parametres
  
+         console.log("user", this.currentuser);
+         console.log("score", this.score);
+
+         this.dbservice.postGameOver(this.currentuser, this.score);
      }
  
      restart():void{
@@ -226,7 +228,6 @@ class Game {
      }
      
      public advance(direction:string):void{
-         console.log("in advance");
          var nextPosi = this.body[0].slice();
              //pr m donner lelement lui mm
  
@@ -254,7 +255,6 @@ class Game {
          } else {
              this.ateApple = false;
          }   
-         console.log("after advanced");
  
      }
  
@@ -307,7 +307,10 @@ class Game {
                      snakeCollision = true;
                  }
              }
- 
+             console.log("coll", wallCollision);
+             console.log("coll2", snakeCollision);
+
+
              return wallCollision || snakeCollision;
  
  

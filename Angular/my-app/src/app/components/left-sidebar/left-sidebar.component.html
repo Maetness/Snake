@@ -1,14 +1,20 @@
 <div class="Highscore">  
     <h1>Ranking</h1>
-    <ul>
-        <li *ngFor="let test2 of scores">{{test2.user}} {{test2.highscore}}</li>    
-    </ul>
+    <div *ngIf="scores">
+        <ul>
+            <li *ngFor="let score of scores">{{score.user}} {{score.highscore}}</li>    
+        </ul>
+    </div>
+    <div *ngIf="!scores"><ul><li>none</li></ul></div>
 </div>
 <div class="top-user">
     <h1>Top-User</h1>
-    <ul>
-        <li *ngFor="let test of topuser">{{test.username}} {{test.playedgames}}</li>      
-    </ul>
+    <div *ngIf="topuser">
+        <ul>
+            <li *ngFor="let user of topuser">{{user.username}} {{user.playedgames}}</li>      
+        </ul>
+    </div>
+    <div *ngIf="!topuser"><ul><li>none</li></ul></div>
   </div>
   <!--hello-->
   <!--test-->

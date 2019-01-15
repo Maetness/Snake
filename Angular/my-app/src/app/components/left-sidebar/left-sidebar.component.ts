@@ -14,13 +14,10 @@ export class LeftSidebarComponent implements OnInit {
   constructor(private dbservice : DbService) { }
 
   ngOnInit() {
-	console.log("init highscores");
     this.dbservice.getOverallHighscores().subscribe(data =>{
       this.scores = data;
-      console.log("data2", data);       
     })
     this.dbservice.getTopUsers().subscribe(data => {
-      console.log("data3", data);
       this.topuser = data;
     });
   }

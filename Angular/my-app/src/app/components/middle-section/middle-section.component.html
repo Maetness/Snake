@@ -1,23 +1,15 @@
-          
-            <div id="01" class="form">
-              <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
-                            
-                    <div class="container">
-                      <label for="uname"><b>Username&nbsp;</b></label>
-                      <input ngModel type="text" placeholder="Enter Username" name="uname" required><br>                    
-                      <label for="psw"><b>Password&nbsp;</b></label>
-                      <input ngModel type="password" placeholder="Enter Password" name="psw" required>&nbsp;                        
-                      <button (click)="setLogin()" type="submit">Login</button>
-                      <p>Not a member yet? Feel free and ...&nbsp;
-                      <button (click)="setRegister()" type="submit">Register</button></p>
-                      <!-- <label>
-                        <input ngModel type="checkbox" checked="checked" name="remember">Remember me
-                      </label> -->
-                    </div>
-    
-                                           
-                    
-                  </form></div>
-                  <app-game></app-game>
-                  
-           <!--  <div class="snake-container"><span style="color:blue">gamebox</span></div> -->
+<div class="form">
+  <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">      
+    <div class="container">
+      <label for="uname"><b>Username</b></label>
+      <input ngModel type="text" placeholder="Enter Username" name="uname" required><br>                    
+      <label for="psw"><b>Password</b></label>
+      <input ngModel type="password" placeholder="Enter Password" name="psw" required>                        
+      <button (click)="setLogin()" type="submit" class="loginbutton">Login</button>
+      <p>Not a member yet? Feel free and ...
+        <button (click)="setRegister()" type="submit" class="registerbutton">Register</button>
+      </p>
+    </div>
+  </form>
+</div>
+<app-game></app-game>

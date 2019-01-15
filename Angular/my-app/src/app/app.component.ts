@@ -11,10 +11,7 @@ export class AppComponent {
 
   constructor (private dbservice : DbService) {  
   }
+  
   ngOnInit(){
-   this.dbservice.getAllUsers().subscribe(data =>{
-     console.log("data", data);
-   })
-   
   };
 }

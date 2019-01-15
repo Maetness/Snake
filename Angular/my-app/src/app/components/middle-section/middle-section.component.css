@@ -9,3 +9,11 @@
     background-size: 21%;
     background-repeat: no-repeat;
 }
+
+.loginbutton {
+    margin-left: 10px;
+}
+
+.registerbutton {
+    margin-left: 5px;
+}

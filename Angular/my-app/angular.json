@@ -25,9 +25,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [
-              "src/assets/javascript/spiel.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {

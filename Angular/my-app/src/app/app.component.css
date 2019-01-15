@@ -3,7 +3,7 @@
     
     
 } 
-.col-3{
+.side{
     background-color: white; /* rgba(179,61,38,.5) */;
     /* color: gold; */
     font-family: "Times New Roman", Times, serif;
@@ -11,7 +11,7 @@
     
 }
 
-.col-6{
+.main{
     background-color: white;/* brown */;
     color: black;
     margin: 10px, 10px, 10px, 10px;

@@ -9,17 +9,15 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
   </head>
-<div class="row">
-  <div class="col-3">
-    <app-left-sidebar></app-left-sidebar>
+  <div class="row">
+      <div class="col-3 side">
+        <app-left-sidebar></app-left-sidebar>
+      </div>
+      <div class="col-6 main">
+          <app-middle-section></app-middle-section>
+        </div>
+      <div class="col-3 side">
+        <app-right-sidebar></app-right-sidebar>
+      </div>  
   </div>
-  <div class="col-6">
-      <app-middle-section></app-middle-section>
-    </div>
-  <div class="col-3">
-    <app-right-sidebar></app-right-sidebar>
-  </div>
-  
-</div>
-<!--<router-outlet></router-outlet>-->
 </html>

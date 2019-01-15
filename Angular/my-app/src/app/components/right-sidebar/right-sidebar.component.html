@@ -1,18 +1,22 @@
 <div class="user-info">
   <h1 class="form-group">User Bio</h1>
-  <ul>
+  <div *ngIf="userinfo">
+    <ul>
       <li>Name: {{userinfo.username}}</li>  
       <li>Games played: {{userinfo.playedgames}}</li>      
       <li>Member since: {{userinfo.membersinze}}</li>          
-  </ul>
+    </ul>
+  </div>
+  <div *ngIf="!userinfo"><ul><li>none</li></ul></div>
 </div>
 <div class="user-highscore">
   <h1>User Highscore</h1>
-  <div *ngIf="userhighscore.length">
+  <div *ngIf="userhighscore && userhighscore.length">
     <ul>
-      <li *ngFor="let test of userhighscore">
-        {{test.highscore}}
+      <li *ngFor="let score of userhighscore">
+        {{score.highscore}}
       </li>
     </ul>
   </div>  
+  <div *ngIf="!userhighscore"><ul><li>none</li></ul></div>
 </div>
