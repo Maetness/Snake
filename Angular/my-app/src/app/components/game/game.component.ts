@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, HostListener } from '@angular/core';
 import * as screenfull from 'screenfull';
 import { DbService } from '../../db.service'
 
@@ -28,9 +28,10 @@ export class GameComponent implements OnInit {
         this.mygame = new Game(this.gamebox, this.dbservice, this.currentuser);
    }
 
+   @HostListener('window:keydown', ['$event'])
    onKeydownHandler(event) {
        console.log("handler", event);
-        //this.mygame.onKeydownHandler(event);
+        this.mygame.onKeydownHandler(event);
    }
 
 }
@@ -170,8 +171,9 @@ class Game {
      }
  
  
+
  
- 
+    
      public onKeydownHandler(e: KeyboardEvent) {
          console.log("event", e);
          var key = e.keyCode;
