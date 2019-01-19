@@ -7,6 +7,9 @@ import Highscores from './highscore.model.js';
 
 const bodyParser = require('body-parser');
 
+const jwt = require('jsonwebtoken');
+const expressJwt = require('express-jwt');
+
 // get around cors errors
 const cors = require('cors');
 /*var corsOptions = {
@@ -50,9 +53,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
     User.find({username: username}).then((data) =>
     {
       if (password == data[0].password) {
-        res.status(201).send("yes");
+        var token = jwt.sign({username: data[0].username}, 'mysnake', {expiresIn: '8h'});
+        res.send({token});
       } else {
-        res.status(333).send("no");
+        return res.sendStatus(401);
       }
     }
     );
@@ -98,34 +102,47 @@ app.use(bodyParser.urlencoded({ extended: true }));
   });
 
   // UserInfo
-  app.route('/api/user/info/:name').get((req, res) => {
-    User.findOne({ username: req.params['name']}, (err, user) => {
-      res.json(user)
-  }) 
+  app.route('/api/user/info/:token').get((req, res) => {
+
+    let token = req.params['token'];
+    var decoded = jwt.verify(token, 'mysnake');
+
+    User.findOne({ username: decoded.username}, (err, user) => {
+      if (user) {
+        res.json(user);
+      } else {
+        res.json(401);
+      }
+    }) 
   });
 
   // User Highscores
-  app.route('/api/highscore/user/:name').get((req, res) => {
-    User.findOne({ username: req.params['name']}, (err, user) => {
+  app.route('/api/highscore/user/:token').get((req, res) => {
+
+    let token = req.params['token'];
+    var decoded = jwt.verify(token, 'mysnake');
+
+    User.findOne({ username: decoded.username}, (err, user) => {
       if (user) {
-        res.json(user.highscores);
+        res.json(user.highscores.sort((a, b) => a.highscore - b.highscore));
       } else {
-        res.json();
+        res.json(401);
       }
     }) 
+    
   });
 
   // Game Over
   app.route("/api/highscore/set").post((req, res) => {
 
-    console.log("inn", req.body);
-
-    let name = req.body.username;
+    let token = req.body.token;
+    var decoded = jwt.verify(token, 'mysnake');
+    let name = decoded.username;
     let score = parseInt(req.body.highscore);
 
     console.log("some", name, score);
 
-    if (name && score) {
+    if (name) {
 
       Highscores.countDocuments().then((mysize) => {     
         if (mysize < 5) {
@@ -148,8 +165,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
         if (user.highscores.length < 5) {
           user.highscores.push({highscore: score});
         } else {
-          if (user.highscores.sort()[0].highscore < score) {
-            user.highscores.sort()[0].remove();
+          let smallest = user.highscores.sort((a, b) => a.highscore - b.highscore)[0].highscore;
+          if (smallest < score) {
+            user.highscores.sort((a, b) => a.highscore - b.highscore)[0].remove();
             user.highscores.push({highscore: score});
           }
         }

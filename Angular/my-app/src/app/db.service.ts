@@ -20,8 +20,8 @@ export class DbService {
     return test3;
   }
   
-  public getUserHighscores (name: string) {
-    let test4 = this.http.get("/api/highscore/user/" + name)
+  public getUserHighscores (token: string) {
+    let test4 = this.http.get("/api/highscore/user/" + token)
     console.log("test4", test4);
     return test4;
   }
@@ -34,14 +34,14 @@ export class DbService {
     return test5;
   }
 
-  public postUserLogin (username: string, password: string){
-    let test6= this.http.post("/api/user/login", username && password);
+  public postUserLogin (username: string, password: string): any{
+    let test6= this.http.post("/api/user/login", {username: username, password: password});
     return test6;
   }
 
-  public postGameOver(username: string, highscore: string) {
-    console.log("postGameOver", username, highscore);
-    return this.http.post("/api/highscore/set", {username: username, highscore: highscore});
+  public postGameOver(token: string, highscore: string) {
+    console.log("postGameOver", token, highscore);
+    return this.http.post("/api/highscore/set", {token: token, highscore: highscore});
   }
 
   //Top-User get services // ranking
@@ -51,8 +51,8 @@ export class DbService {
     return topusers;  
   }
 
-  public getUserInfo (username: string){
-    let userinfo = this.http.get("/api/user/info/" + username)
+  public getUserInfo (token: string){
+    let userinfo = this.http.get("/api/user/info/" + token)
     console.log("userinfo", userinfo);
     return userinfo;
   }

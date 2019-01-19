@@ -1,8 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild, HostListener } from '@angular/core';
 import * as screenfull from 'screenfull';
-import { DbService } from '../../db.service';
 import { Game } from './game'
-
+import { GameOverService } from './gameover.service';
 
 declare var game:any;
 
@@ -24,10 +23,10 @@ export class GameComponent implements OnInit {
         }
     }
 
-   constructor(private dbservice: DbService) { }
+   constructor(private gameoverservice: GameOverService) { }
    ngOnInit() {
         console.log("CANVAS", this.gamebox);
-        this.mygame = new Game(this.gamebox, this.dbservice, this.currentuser);
+        this.mygame = new Game(this.gamebox, this.gameoverservice);
    }
 
    @HostListener('window:keydown', ['$event'])

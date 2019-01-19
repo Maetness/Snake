@@ -1,5 +1,5 @@
 <div class="user-info">
-  <h1 class="form-group">User Bio</h1>
+  <h2 class="form-group">User Bio</h2>
   <div *ngIf="userinfo">
     <ul>
       <li>Name: {{userinfo.username}}</li>  
@@ -10,7 +10,7 @@
   <div *ngIf="!userinfo"><ul><li>none</li></ul></div>
 </div>
 <div class="user-highscore">
-  <h1>User Highscore</h1>
+  <h2>User Highscore</h2>
   <div *ngIf="userhighscore && userhighscore.length">
     <ul>
       <li *ngFor="let score of userhighscore">

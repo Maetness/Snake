@@ -1,5 +1,6 @@
-import { DbService } from '../../db.service';
-import {ElementRef } from '@angular/core';
+import { ElementRef } from '@angular/core';
+import { GameOverService } from './gameover.service';
+
 export class Game {
    
     public canvasWidth: number;
@@ -18,9 +19,11 @@ export class Game {
     public score;
  
     public ourCanvas : any;
+    
+    // some
+    private gameoverservice: GameOverService;
   
-  
-    constructor(gamebox: ElementRef, private dbservice: DbService, private currentuser: string) { 
+    constructor(gamebox: ElementRef, gameoverservice: GameOverService) { 
       this.canvasWidth = 300;
       this.canvasHeigth = 300;
       this.blockSize = 10;
@@ -31,6 +34,7 @@ export class Game {
       this.snakee = new Snake([[4, 2], [3, 2], [2, 2], [1, 3]], "right");
       this.applee = new Apple([2, 2]);
       this.ourCanvas = gamebox;
+      this.gameoverservice = gameoverservice;
       this.init();
     }
   
@@ -45,16 +49,13 @@ export class Game {
   
           this.ctx = canvas.getContext('2d');
           
-          this.score = 0;
+          this.score = 5;
           
           this.refreshCanvas();
       }
   
       refreshCanvas():void{
-          this.snakee.advance(this.snakee.direction);
-  
-          
-          console.log("before collision", this.snakee.checkCollision(this));
+          this.snakee.advance(this.snakee.direction);          
           if (this.snakee.checkCollision(this)) {
               this.gameOver();
           }
@@ -103,10 +104,10 @@ export class Game {
   
           this.ctx.restore();//restore parameter at the end
   
-          console.log("user", this.currentuser);
           console.log("score", this.score);
  
-          this.dbservice.postGameOver(this.currentuser, this.score);
+          this.gameoverservice.callGameOver(this.score);
+
       }
   
       restart():void{
@@ -136,7 +137,6 @@ export class Game {
   
      
       public onKeydownHandler(e: KeyboardEvent) {
-          console.log("event", e);
           var key = e.keyCode;
           //button controls for snake's direction
           var newDirection;
@@ -270,13 +270,7 @@ export class Game {
                       snakeCollision = true;
                   }
               }
-              console.log("coll", wallCollision);
-              console.log("coll2", snakeCollision);
- 
- 
               return wallCollision || snakeCollision;
-  
-  
       }
   
       isEatingApple(appleToEat:Apple):boolean{

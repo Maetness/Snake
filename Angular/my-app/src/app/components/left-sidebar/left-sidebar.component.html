@@ -1,5 +1,5 @@
 <div class="Highscore">  
-    <h1>Ranking</h1>
+    <h2>Ranking</h2>
     <div *ngIf="scores">
         <ul>
             <li *ngFor="let score of scores">{{score.user}} {{score.highscore}}</li>    
@@ -8,7 +8,7 @@
     <div *ngIf="!scores"><ul><li>none</li></ul></div>
 </div>
 <div class="top-user">
-    <h1>Top-User</h1>
+    <h2>Top-User</h2>
     <div *ngIf="topuser">
         <ul>
             <li *ngFor="let user of topuser">{{user.username}} {{user.playedgames}}</li>      
