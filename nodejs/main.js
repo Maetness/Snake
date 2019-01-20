@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 import mongoose from 'mongoose';
-const db = mongoose.connect('mongodb://localhost:27017/somedumm');
+const db = mongoose.connect('mongodb://mongo:27017/somedumm');
 import User from './user.model.js';
 import Highscores from './highscore.model.js';
 

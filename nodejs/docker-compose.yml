@@ -1,0 +1,13 @@
+version: '2.1'
+
+services:
+  nodejs:
+    image: nodejs
+    build: .
+    environment:
+      NODE_ENV: production
+    ports: ['8000:8000']
+    links: [ mongo ]
+  mongo:
+   image: mongo
+   ports: [ '27017:27017' ]
