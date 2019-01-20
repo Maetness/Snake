@@ -23,9 +23,9 @@ export class Game {
     // some
     private gameoverservice: GameOverService;
   
-    constructor(gamebox: ElementRef, gameoverservice: GameOverService) { 
-      this.canvasWidth = 300;
-      this.canvasHeigth = 300;
+    constructor(gamebox: ElementRef, gameoverservice: GameOverService, width: number = 300, height: number = 300) { 
+      this.canvasWidth = width;
+      this.canvasHeigth = height;
       this.blockSize = 10;
       this.delay = 50;
       this.widthInBlocks = this.canvasWidth / this.blockSize;
@@ -102,10 +102,7 @@ export class Game {
           this.ctx.strokeText("Press Spacebar", centreX, centreY - 120);
           this.ctx.fillText("Press Spacebar", centreX, centreY - 120);
   
-          this.ctx.restore();//restore parameter at the end
-  
-          console.log("score", this.score);
- 
+          this.ctx.restore();//restore parameter at the end 
           this.gameoverservice.callGameOver(this.score);
 
       }
@@ -115,7 +112,6 @@ export class Game {
           this.score = 0;
           this.applee = new Apple([10, 10]);
           this.refreshCanvas();
-  
       }
   
       drawScore():void{

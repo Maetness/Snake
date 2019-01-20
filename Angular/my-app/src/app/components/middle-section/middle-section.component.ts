@@ -34,7 +34,7 @@ export class MiddleSectionComponent implements OnInit {
         this.dbservice.postUserCreation(form.value.uname, form.value.psw).subscribe(data => {
            console.log("creation", data.res); 
            if (data.res === "yes") {
-              alert("You are registerd, please login");
+              alert("You are registered, please login");
            } else if (data.res === "no") {
               alert("Try register again use diffrent data");
            }
