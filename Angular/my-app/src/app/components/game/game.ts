@@ -49,9 +49,9 @@ export class Game {
   
           this.ctx = canvas.getContext('2d');
           
-          this.score = 5;
+          this.score = 0;
           
-          this.refreshCanvas();
+          //this.refreshCanvas();
       }
   
       refreshCanvas():void{

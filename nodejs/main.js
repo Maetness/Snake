@@ -34,13 +34,20 @@ app.use(bodyParser.urlencoded({ extended: true }));
     let password = req.body.password;
 
     // todo write function on existing username
-    if (username && password) {      
-      let date = new Date().toDateString();
-      let user = new User({username: username, password: password, membersinze: date, playedgames: 0});
-      user.save();
-      res.status(201).send("yes");
+    if (username && password) {    
+      
+      User.findOne({ username: username}, (err, user) => {
+        if (!user) {
+          let date = new Date().toDateString();
+          let user = new User({username: username, password: password, membersinze: date, playedgames: 0});
+          user.save();
+          res.send({ res: "yes"});
+        } else {
+          res.send({ res: "no"});         
+        }
+      }); 
     } else {
-      res.status(333).send("no");
+      res.send({ res: "no"});
     }
   });
 
@@ -52,11 +59,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
     User.find({username: username}).then((data) =>
     {
-      if (password == data[0].password) {
-        var token = jwt.sign({username: data[0].username}, 'mysnake', {expiresIn: '8h'});
-        res.send({token});
+      if (data.length) {
+        if (password == data[0].password) {
+          var token = jwt.sign({username: data[0].username}, 'mysnake', {expiresIn: '8h'});
+          res.send({token});
+        } else {
+          return res.send({});
+        }
       } else {
-        return res.sendStatus(401);
+        return res.send({});
       }
     }
     );
@@ -139,9 +150,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
     var decoded = jwt.verify(token, 'mysnake');
     let name = decoded.username;
     let score = parseInt(req.body.highscore);
-
-    console.log("some", name, score);
-
     if (name) {
 
       Highscores.countDocuments().then((mysize) => {     
