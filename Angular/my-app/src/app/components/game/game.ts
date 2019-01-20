@@ -99,8 +99,8 @@ export class Game {
           this.ctx.fillText("GAME OVER", centreX, centreY - 180);
   
           this.ctx.font = "bold 30px sans-serif";
-          this.ctx.strokeText("DRUECKEN SIE AUF SPACE UM WIEDERZUSPIELEN", centreX, centreY - 120);
-          this.ctx.fillText("DRUECKEN SIE AUF SPACE UM WIEDERZUSPIELEN", centreX, centreY - 120);
+          this.ctx.strokeText("Press Spacebar", centreX, centreY - 120);
+          this.ctx.fillText("Press Spacebar", centreX, centreY - 120);
   
           this.ctx.restore();//restore parameter at the end
   
