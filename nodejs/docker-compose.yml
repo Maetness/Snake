@@ -11,3 +11,7 @@ services:
   mongo:
    image: mongo
    ports: [ '27017:27017' ]
+  angular:
+    image: angular
+   # build: ~/Desktop/WT-Projekt-Git/Snake/Angular
+    ports: ['80:80']
