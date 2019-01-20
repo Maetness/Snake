@@ -20,6 +20,7 @@ export class GameComponent implements OnInit {
     public Clickme(){
         if (screenfull.enabled) {
             screenfull.request(this.gamebox.nativeElement);
+            this.mygame = new Game(this.gamebox, this.gameoverservice, window.innerWidth -10, window.innerHeight -10);
         }
     }
 
