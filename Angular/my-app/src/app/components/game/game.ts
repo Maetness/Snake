@@ -27,7 +27,7 @@ export class Game {
       this.canvasWidth = width;
       this.canvasHeigth = height;
       this.blockSize = 10;
-      this.delay = 500;
+      this.delay = 50;
       this.widthInBlocks = this.canvasWidth / this.blockSize;
       //la longueur d tout mon area
       this.heigthInBlocks = this.canvasHeigth / this.blockSize;
